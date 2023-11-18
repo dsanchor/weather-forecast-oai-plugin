@@ -6,7 +6,7 @@
 
 AKS_RESOURCE_GROUP=<resource group>
 AKS_CLUSTER_NAME=<cluster name>
-NAMESPACE=chat-copilot-plugins
+AKS_NAMESPACE=chat-copilot-plugins
 AZURE_CREDENTIALS=<sp-json>
 
 # Prepare AKS environment
