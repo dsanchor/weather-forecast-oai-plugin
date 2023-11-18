@@ -59,7 +59,8 @@ jobs:
         run: |
           SVC_IP=""
           while [ -z "$SVC_IP" ]; do
-            SVC_IP=$(kubectl get svc weather-forecast-oai-plugin -n ${{ env.NAMESPACE }} -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+            SVC_IP=$(kubectl get svc weather-forecast-oai-plugin -n ${{ env.NAMESPACE }} \
+              -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
             sleep 5
           done
           sed -i "s/\$OAI_PLUGIN_BASEURL/http:\/\/$SVC_IP\:8080/g" k8s/application.yaml
