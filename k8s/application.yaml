@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: weather-forecast-oai-plugin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: weather-forecast-oai-plugin
+  template:
+    metadata:
+      labels:
+        app: weather-forecast-oai-plugin
+    spec:
+      containers:
+        - name: weather-forecast-oai-plugin
+          image: $IMAGE
+          # enviroment variables
+          env:
+            - name: OAI_PLUGIN_BASEURL 
+              value: $OAI_PLUGIN_BASEURL
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: weather-forecast-oai-plugin
+spec:
+  selector:
+    app: weather-forecast-oai-plugin
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer

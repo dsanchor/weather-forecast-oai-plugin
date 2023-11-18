@@ -1,0 +1,17 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "Weather forecast Plugin",
+    "name_for_model": "WeatherForecastPlugin",
+    "description_for_human": "Used to retrieve weather forecast for a given city.",
+    "description_for_model": "Used to retrieve weather forecast for a given city.",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "${baseurl}/v3/api-docs"
+    },
+    "logo_url": "https://media.wired.co.uk/photos/606dba1c9a15f73a597a2aa1/master/w_1600,c_limit/weather.jpg",
+    "contact_email": "support@example.com",
+    "legal_info_url": "http://www.example.com/legal"
+}
