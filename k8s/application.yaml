@@ -19,6 +19,12 @@ spec:
           env:
             - name: OAI_PLUGIN_BASEURL 
               value: $OAI_PLUGIN_BASEURL
+            - name: CLIENT_AZUREOPENAI_KEY 
+              value: $CLIENT_AZUREOPENAI_KEY
+            - name: CLIENT_AZUREOPENAI_ENDPOINT
+              value: $CLIENT_AZUREOPENAI_ENDPOINT
+            - name: CLIENT_AZUREOPENAI_DEPLOYMENTNAME 
+              value: $CLIENT_AZUREOPENAI_DEPLOYMENTNAME
           ports:
             - containerPort: 8080
 ---
