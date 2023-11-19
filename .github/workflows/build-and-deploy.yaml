@@ -52,10 +52,10 @@ jobs:
 
       - name: Deploy app to AKS
         run: |
-          sed -i "s/\$IMAGE/ghcr.io\/${{ github.repository_owner }}\/${{ env.IMAGE_NAME }}\:${{ github.sha }}/g" k8s/application.yaml
-          sed -i "s/\$CLIENT_AZUREOPENAI_KEY/${{ secrets.CLIENT_AZUREOPENAI_KEY }}/g" k8s/application.yaml
-          sed -i "s/\$CLIENT_AZUREOPENAI_ENDPOINT/${{ secrets.CLIENT_AZUREOPENAI_ENDPOINT }}/g" k8s/application.yaml
-          sed -i "s/\$CLIENT_AZUREOPENAI_DEPLOYMENTNAME/${{ secrets.CLIENT_AZUREOPENAI_DEPLOYMENTNAME }}/g" k8s/application.yaml          
+          sed -i "s#$IMAGE#ghcr.io\/${{ github.repository_owner }}\/${{ env.IMAGE_NAME }}\:${{ github.sha }}#g" k8s/application.yaml
+          sed -i "s#\$CLIENT_AZUREOPENAI_KEY#${{ secrets.CLIENT_AZUREOPENAI_KEY }}#g" k8s/application.yaml
+          sed -i "s#\$CLIENT_AZUREOPENAI_ENDPOINT#${{ secrets.CLIENT_AZUREOPENAI_ENDPOINT }}#g" k8s/application.yaml
+          sed -i "s#\$CLIENT_AZUREOPENAI_DEPLOYMENTNAME#${{ secrets.CLIENT_AZUREOPENAI_DEPLOYMENTNAME }}#g" k8s/application.yaml          
           kubectl apply -f k8s/application.yaml -n ${{ env.NAMESPACE }}
 
       - name: Update with Service IP
