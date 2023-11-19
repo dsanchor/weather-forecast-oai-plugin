@@ -72,3 +72,9 @@ TAG=$(git rev-parse HEAD)
 IMAGE=ghcr.io/dsanchor/weather-forecast-oai-plugin:$TAG
 az webapp config container set --resource-group $RESOURCE_GROUP --name chat-copilot-plugins --docker-custom-image-name $IMAGE
 ```
+
+## Test plugin
+
+```bash
+curl https://$DOMAIN/forecast?location=Stockholm
+```

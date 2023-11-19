@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import org.apache.logging.log4j.util.Strings;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Value;
@@ -49,6 +50,7 @@ public class SemanticKernel {
             kernel = kernel();
         } catch (ConfigurationException e) {
             System.out.println("SemanticKernel initialization failed");
+            e.printStackTrace();
         }
     }
 
@@ -65,7 +67,8 @@ public class SemanticKernel {
                 variables,
                 getKernel().getSkill("Locator").getFunction("CityCoordinates", null),
                 getKernel().getSkill("Forecast").getFunction("GetForecastJsonData", null),
-                getKernel().getSkill("Weather").getFunction("ForecastSummarizer", null));
+                getKernel().getSkill("Weather").getFunction("ForecastSummarizer", null)
+                );
 
         System.out.println("=> Result");
         String summary = result.block().getResult();
@@ -107,7 +110,7 @@ public class SemanticKernel {
 
         ReadOnlySkillCollection collection =  kernel.getSkills();
         ReadOnlyFunctionCollection functions = collection.getAllFunctions();
-        System.out.println("=> Registered functions <=");
+        System.out.println("=> Registered functions");
         functions.getAll().forEach(function -> {
             System.out.println(function.getSkillName()+"."+function.getName());
         });
@@ -121,13 +124,23 @@ public class SemanticKernel {
     }
 
     private AzureOpenAISettings settings() throws ConfigurationException {
+
         Map<String, String> map = new HashMap<>();
-        map.put(AzureOpenAISettings.getKeySuffix(), azOaiKey);
-        map.put(AzureOpenAISettings.getAzureOpenAiEndpointSuffix(), azOaiEndpoint);
-        map.put(AzureOpenAISettings.getAzureOpenAiDeploymentNameSuffix(), azOaiDeployment);
+        map.put(AzureOpenAISettings.getDefaultSettingsPrefix()+"."
+            + AzureOpenAISettings.getKeySuffix(), azOaiKey);
+        map.put(AzureOpenAISettings.getDefaultSettingsPrefix()+"."
+            + AzureOpenAISettings.getAzureOpenAiEndpointSuffix(), azOaiEndpoint);
+        map.put(AzureOpenAISettings.getDefaultSettingsPrefix()+"."
+            + AzureOpenAISettings.getAzureOpenAiDeploymentNameSuffix(), azOaiDeployment);
+
         AzureOpenAISettings settings = new AzureOpenAISettings(map);
+        System.out.println("=> Azure OpenAI Settings");
+        System.out.println("Key: " + (Strings.isEmpty(settings.getKey()) ? "" : "****"));
+        System.out.println("Endpoint: " + settings.getEndpoint());
+        System.out.println("Deployment Name: " + settings.getDeploymentName());
         return settings;
     }
+
 
     private Kernel getKernel() {
         return kernel;
