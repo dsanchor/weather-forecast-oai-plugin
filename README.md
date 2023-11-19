@@ -42,6 +42,18 @@ az aks get-credentials --resource-group $RESOURCE_GROUP --name $CLUSTER_NAME
 kubectl create namespace $NAMESPACE
 ```
 
+## Get Service IP
+    
+```bash
+export SVC_IP=$(kubectl get service weather-forecast-oai-plugin -n $NAMESPACE -o jsonpath='{.status.loadBalancer.ingress[0].ip}')
+```
+
+## Test plugin
+
+```bash
+curl http://$SVC_IP/forecast?location=Stockholm
+```
+
 # 2.  Manual deploy image in App Service
 
 ## Create App Service

@@ -104,8 +104,10 @@ public class SemanticKernel {
                         .build())
                 .build();
 
-        kernel.importSkillFromDirectory("Locator", "src/main/resources/plugins", "Locator");
-        kernel.importSkillFromDirectory("Weather", "src/main/resources/plugins", "Weather");
+        kernel.importSkillFromResources("plugins", "Locator", "CityCoordinates");
+        kernel.importSkillFromResources("plugins", "Weather", "ForecastSummarizer");
+        // kernel.importSkillFromDirectory("Locator", "src/main/resources/plugins", "Locator");
+        // kernel.importSkillFromDirectory("Weather", "src/main/resources/plugins", "Weather");
         kernel.importSkill(new Forecast(), "Forecast");
 
         ReadOnlySkillCollection collection =  kernel.getSkills();
