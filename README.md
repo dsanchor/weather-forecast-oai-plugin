@@ -62,19 +62,19 @@ curl http://$SVC_IP/forecast?location=Stockholm
 RESOURCE_GROUP=<app-service-rg>
 TAG=$(git rev-parse HEAD)
 IMAGE=ghcr.io/dsanchor/weather-forecast-oai-plugin:$TAG
-az appservice plan create --name chat-copilot-plugins --resource-group $RESOURCE_GROUP --sku S1 --is-linux
-az webapp create --resource-group $RESOURCE_GROUP --plan chat-copilot-plugins --name chat-copilot-plugins --deployment-container-image-name $IMAGE
+az appservice plan create --name chat-copilot-plugins --resource-group $RESOURCE_GROUP --sku P1V3 --is-linux
+az webapp create --resource-group $RESOURCE_GROUP --plan chat-copilot-plugins --name weather-forecast-oai-plugin --deployment-container-image-name $IMAGE
 ```
 
 ## Set environment variables
 
 ```bash
-DOMAIN=$(az webapp show --name chat-copilot-plugins --resource-group $RESOURCE_GROUP --query defaultHostName --output tsv)
+DOMAIN=$(az webapp show --name weather-forecast-oai-plugin --resource-group $RESOURCE_GROUP --query defaultHostName --output tsv)
 CLIENT_AZUREOPENAI_KEY=<client-azureopenai-key>
 CLIENT_AZUREOPENAI_ENDPOINT=<client-azureopenai-endpoint>
 CLIENT_AZUREOPENAI_DEPLOYMENTNAME=<client-azureopenai-deploymentname>
 
-az webapp config appsettings set --resource-group $RESOURCE_GROUP --name chat-copilot-plugins --settings OAI_PLUGIN_BASEURL=https://$DOMAIN CLIENT_AZUREOPENAI_KEY=$CLIENT_AZUREOPENAI_KEY CLIENT_AZUREOPENAI_ENDPOINT=$CLIENT_AZUREOPENAI_ENDPOINT CLIENT_AZUREOPENAI_DEPLOYMENTNAME=$CLIENT_AZUREOPENAI_DEPLOYMENTNAME
+az webapp config appsettings set --resource-group $RESOURCE_GROUP --name weather-forecast-oai-plugin --settings OAI_PLUGIN_BASEURL=https://$DOMAIN CLIENT_AZUREOPENAI_KEY=$CLIENT_AZUREOPENAI_KEY CLIENT_AZUREOPENAI_ENDPOINT=$CLIENT_AZUREOPENAI_ENDPOINT CLIENT_AZUREOPENAI_DEPLOYMENTNAME=$CLIENT_AZUREOPENAI_DEPLOYMENTNAME
 ```
 
 ## Redeploy image with latest commit

@@ -3,7 +3,7 @@
   "description": "Provides a weather forecast for the next 7 days",
   "type": "completion",
   "completion": {
-    "max_tokens": 1024,
+    "max_tokens": 2048,
     "temperature": 0.9,
     "top_p": 0.9,
     "presence_penalty": 0.0,

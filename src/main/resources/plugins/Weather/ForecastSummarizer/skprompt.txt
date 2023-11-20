@@ -13,6 +13,7 @@ You have a JSON file with the weather forecast for the next 7 days with daily pr
 You need to create a report that will show the weather forecast for the next 7 days.
 Name the city you are forecasting in the report.
 Use a friendly tone in the summary for the user and add a final funny note to the report related to the coming weather.
+The report should not exceed 1000 characters.
 
 [WEATHER FORECAST JSON]
 {{ $input }}
